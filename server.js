@@ -1,7 +1,5 @@
 const express = require("express");
-const { Server } = require("socket.io");
 const app = express();
-const helmet = require("helmet");
 const cors = require("cors");
 const swimApp = require("./routers/router");
 const session = require("express-session");

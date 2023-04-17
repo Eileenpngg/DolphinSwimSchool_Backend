@@ -1,18 +1,21 @@
 require("dotenv").config();
-const Pool = require("pg").Pool;
+const { Client, Pool } = require("pg");
+const connectionString = process.env.CONNECTION_STRING;
+const client = new Client(
+  `${connectionString}?sslmode=true`
+  // user: process.env.USER,
+  // password: process.env.PASSWORD,
+  // host: process.env.HOST,
+  // port: process.env.PORT,
+  // database: process.env.DATABASE,
+  // sslmode: "require",
+);
 
 const pool = new Pool({
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  host: process.env.HOST,
-  port: process.env.PORT,
-  database: process.env.DATABASE,
-  ssl: {
-    require: "false",
-  },
+  connectionString,
 });
 
-pool.connect((err) => {
+client.connect((err) => {
   if (err) {
     console.error("connection error", err.stack);
   } else {
