@@ -10,7 +10,6 @@ const client = new Client(
   // database: process.env.DATABASE,
   // sslmode: "require",
 );
-
 const pool = new Pool({
   connectionString,
 });
