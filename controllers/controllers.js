@@ -37,10 +37,10 @@ const register = async (req, res) => {
     const newProfile = await pool.query(
       `INSERT INTO profiles(id, name, age, level, contact, is_instructor ) VALUES (${id}, '${name}', ${age}, '${level}', ${contact}, '${is_instructor}');`
     );
-    // res.json({ status: "ok", message: "profile is created" });
+    res.status(200).json({ status: "ok", message: "profile is created" });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json("Server Error");
   }
 };
 // ===============================================================================================================================================================================================================
@@ -102,7 +102,7 @@ const login = async (req, res) => {
       });
 
       console.log(req.session);
-      res.json(response);
+      res.status.json({ status: "ok", message: "login ok" })
     }
   } catch (err) {
     console.error(err.message);
