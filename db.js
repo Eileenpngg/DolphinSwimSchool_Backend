@@ -2,7 +2,7 @@ require("dotenv").config();
 const { Client, Pool } = require("pg");
 const connectionString = process.env.CONNECTION_STRING;
 
-const client = new Client(`${connectionString}?sslmode=true`);
+const client = new Client(`${connectionString}?sslmode=require`);
 const pool = new Pool({
   connectionString,
 });
