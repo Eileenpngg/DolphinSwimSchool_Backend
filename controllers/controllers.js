@@ -77,7 +77,7 @@ const login = async (req, res) => {
       response.contact = userDetails.rows[0].contact;
       response.age = userDetails.rows[0].age;
       response.is_instructor = userDetails.rows[0].is_instructor;
-      
+
       req.session.user = {
         username: response.name,
         id: response.id,
@@ -100,13 +100,13 @@ const login = async (req, res) => {
         expiresIn: "30d",
         jwtid: uuidv4(),
       });
-    
+
       console.log(req.session);
       res.json(response);
     }
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Login Failed");
+    res.status(500);
   }
 };
 // ===============================================================================================================================================================================================================
