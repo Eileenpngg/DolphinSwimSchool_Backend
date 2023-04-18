@@ -8,8 +8,7 @@ const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
   try {
-    const { name, age, level, contact, is_instructor, email, password } =
-      req.body;
+    const { name, age, level, contact, is_instructor, email, password } = req.body;
 
     const user = await pool.query(
       `SELECT * from users WHERE email = '${email}'`
@@ -102,7 +101,7 @@ const login = async (req, res) => {
       });
 
       console.log(req.session);
-      res.status.json({ status: "ok", message: "login ok" })
+      res.status.json({ status: "ok", message: "login ok" });
     }
   } catch (err) {
     console.error(err.message);
