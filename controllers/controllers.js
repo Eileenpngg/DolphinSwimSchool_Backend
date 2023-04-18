@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 const register = async (req, res) => {
   try {
     const { name, age, level, contact, is_instructor, email, password } = req.body;
-
+    console.log(req.body);
     const user = await pool.query(
       `SELECT * from users WHERE email = '${email}'`
     );
@@ -18,6 +18,7 @@ const register = async (req, res) => {
     if (user.rows.length != 0) {
       return res.status(401).send("User already exist");
     }
+    console.log(user);
     const saltRound = 12;
     const bcryptedPassword = await bcrypt.hash(password, saltRound);
 
@@ -39,7 +40,7 @@ const register = async (req, res) => {
     res.status(200).json({ status: "ok", message: "profile is created" });
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server Error");
+    res.status(500).json(err);
   }
 };
 // ===============================================================================================================================================================================================================
