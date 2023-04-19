@@ -107,7 +107,7 @@ const login = async (req, res) => {
       });
 
       console.log(req.session);
-      res.status.json({ status: "ok", message: "login ok" });
+      return res.status.json({ status: "ok", message: "login ok" });
     }
   } catch (err) {
     console.error(err.message);
