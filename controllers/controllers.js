@@ -77,7 +77,7 @@ const login = async (req, res) => {
       );
       response.id = userDetails.rows[0].id;
       response.name = userDetails.rows[0].name;
-      response.email = email.rows[0].email;
+      response.email = userDetails.rows[0].email;
       response.level = userDetails.rows[0].level;
       response.contact = userDetails.rows[0].contact;
       response.age = userDetails.rows[0].age;
@@ -111,7 +111,7 @@ const login = async (req, res) => {
     }
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Login Failed");
+    return res.status(500).json("Login Failed");
   }
 };
 // ===============================================================================================================================================================================================================

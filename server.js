@@ -5,8 +5,6 @@ const swimApp = require("./routers/router");
 const session = require("express-session");
 require("dotenv").config();
 
-app.set("trust proxy", 1);
-
 //middleware
 app.use(cors({ origin: "https://dolphin-swim-school-frontend.vercel.app" }));
 app.use(express.json());
