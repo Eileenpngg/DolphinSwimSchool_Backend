@@ -15,14 +15,6 @@ app.use(
     name: "sid",
     resave: false,
     saveUninitialized: false,
-    cookie: {
-      // maxAge: 1000 * 60 * 60,
-      // secure: process.env.ENVIRONMENT === "production" ? "true" : "auto",
-      // // httpOnly: false,
-      // // domain: "http://localhost:3000",
-      // sameSite: "none",
-      // // secure: "false",
-    },
   })
 );
 

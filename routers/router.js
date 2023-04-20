@@ -61,10 +61,4 @@ router.delete("/packages/:id", deletePackage);
 
 router.put("/packages/:id", getPackage);
 
-// router.post("/chat", createChat)
-
-// router.get("/:userId", userChats)
-
-// router.get("/:firstId/:secondId", findChat)
-
 module.exports = router;

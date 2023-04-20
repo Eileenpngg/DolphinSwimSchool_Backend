@@ -24,7 +24,7 @@ const register = async (req, res) => {
     const bcryptedPassword = await bcrypt.hash(password, saltRound);
 
     const newUser = await pool.query(
-      `INSERT INTO users(email, password) VALUES ('${email}', '${bcryptedPassword} RETURNING *');`
+      `INSERT INTO users(email, password) VALUES ('${email}', '${bcryptedPassword}') RETURNING *;`
     );
     console.log(newUser.rows);
 
@@ -83,10 +83,6 @@ const login = async (req, res) => {
       response.age = userDetails.rows[0].age;
       response.is_instructor = userDetails.rows[0].is_instructor;
 
-      req.session.user = {
-        username: response.name,
-        id: response.id,
-      };
       if (!validPassword) {
         return res.status(401).json("Password or Email is incorrect");
       }
@@ -96,17 +92,13 @@ const login = async (req, res) => {
         email: user.email,
       };
 
-      const access = jwt.sign(payload, process.env.ACCESS_SECRET, {
+      const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {
         expiresIn: "20m",
         jwtid: uuidv4(),
       });
 
-      const refresh = jwt.sign(payload, process.env.REFRESH_SECRET, {
-        expiresIn: "30d",
-        jwtid: uuidv4(),
-      });
+      response.token = accessToken;
 
-      console.log(req.session);
       return res.status(200).json(response);
     }
   } catch (err) {
@@ -118,7 +110,7 @@ const login = async (req, res) => {
 
 // ================================================================================================= INSTRUCTORS =====================================================================================================
 
-//Creates classes
+//creates classes
 const createClass = async (req, res) => {
   try {
     const { name, level, date, time } = req.body;
@@ -424,31 +416,6 @@ const getPackage = async (req, res) => {
     res.status(500);
   }
 };
-// ====================================================================================================================================================================================================================
-
-// ================================================================================================= CHAT =====================================================================================================
-// const createChat = async (req, res) => {
-//   const members = [req.body.senderId, req.body.receiverId];
-//   try {
-//     const result = await res.statu(200).json(result);
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// };
-
-// const userChats = async (req, res) => {
-//   try {
-//     const chat = await res.statu(200).json(result);
-//     //check if the id is one of the members in the chat
-//     if(){
-
-//     }
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// };
-
-// const findChat = async (req, res) => {};
 
 module.exports = {
   register,
