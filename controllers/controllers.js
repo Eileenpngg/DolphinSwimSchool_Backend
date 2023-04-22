@@ -33,17 +33,11 @@ const register = async (req, res) => {
     );
 
     const id = user_id.rows[0].id;
-    console.log(id);
 
     const newProfile = await pool.query(
       `INSERT INTO profiles(id, name, age, level, contact, is_instructor ) VALUES (${id}, '${name}', ${age}, '${level}', ${contact}, '${is_instructor}');`
     );
-    console.log(is_instructor);
-    if (!is_instructor) {
-      const insertPackages = await pool.query(
-        `INSERT INTO packages(id, remaining) VALUES (${id} , ${0});`
-      );
-    }
+
     res.status(200).json({ status: "ok", message: "profile is created" });
   } catch (err) {
     console.error(err.message);
@@ -377,13 +371,13 @@ const updatePackage = async (req, res) => {
       res.json({ status: "ok", message: "new user inserted into package" });
     } else if (remaining.rows[0].remaining >= 50) {
       res.status(500).json({ status: "error", message: "unsuccessful" });
+    } else {
+      const newRemaining = remaining.rows[0].remaining + parseInt(amount);
+      const addNewRemaining = await pool.query(
+        `UPDATE packages SET remaining = ${newRemaining} WHERE id = ${id}`
+      );
+      res.status(200).json({ status: "ok", message: "updated package" });
     }
-
-    const newRemaining = remaining.rows[0].remaining + parseInt(amount);
-    const addNewRemaining = await pool.query(
-      `UPDATE packages SET remaining = ${newRemaining} WHERE id = ${id}`
-    );
-    res.status(200).json({ status: "ok", message: "updated package" });
   } catch (err) {
     console.error(err.message);
     res.status(500).json("Server Error");
