@@ -38,10 +38,11 @@ const register = async (req, res) => {
     const newProfile = await pool.query(
       `INSERT INTO profiles(id, name, age, level, contact, is_instructor ) VALUES (${id}, '${name}', ${age}, '${level}', ${contact}, '${is_instructor}');`
     );
-    const insertPackages = await pool.query(
-      `INSERT INTO packages(id, remaining) VALUES (${id} , ${0})`
-    );
-
+    if (!is_instructor) {
+      const insertPackages = await pool.query(
+        `INSERT INTO packages(id, remaining) VALUES (${id} , ${0})`
+      );
+    }
     res.status(200).json({ status: "ok", message: "profile is created" });
   } catch (err) {
     console.error(err.message);
