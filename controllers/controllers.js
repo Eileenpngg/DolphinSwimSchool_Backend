@@ -75,21 +75,19 @@ const login = async (req, res) => {
       const email = await pool.query(
         `SELECT * from users WHERE id = ${user.rows[0].id}`
       );
-      response.id = userDetails.rows[0].id;
-      response.name = userDetails.rows[0].name;
-      response.email = userDetails.rows[0].email;
-      response.level = userDetails.rows[0].level;
-      response.contact = userDetails.rows[0].contact;
-      response.age = userDetails.rows[0].age;
-      response.is_instructor = userDetails.rows[0].is_instructor;
 
       if (!validPassword) {
         return res.status(401).json("Password or Email is incorrect");
       }
 
       const payload = {
-        id: user.id,
-        email: user.email,
+        id: userDetails.rows[0].id,
+        name: userDetails.rows[0].name,
+        email: userDetails.rows[0].email,
+        level: userDetails.rows[0].level,
+        contact: userDetails.rows[0].contact,
+        age: userDetails.rows[0].age,
+        instructor: userDetails.rows[0].is_instructor
       };
 
       const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {
