@@ -6,7 +6,7 @@ const session = require("express-session");
 require("dotenv").config();
 
 //middleware
-app.use(cors({ origin: "dolphin-swim-school-frontend.vercel.app" }));
+app.use(cors({ origin: "https://dolphin-swim-school-frontend.vercel.app" }));
 app.use(express.json());
 app.use(
   session({
