@@ -80,6 +80,8 @@ const login = async (req, res) => {
         return res.status(401).json("Password or Email is incorrect");
       }
 
+      console.log(userDetails.rows[0]);
+
       const payload = {
         id: userDetails.rows[0].id,
         name: userDetails.rows[0].name,
