@@ -87,7 +87,7 @@ const login = async (req, res) => {
         level: userDetails.rows[0].level,
         contact: userDetails.rows[0].contact,
         age: userDetails.rows[0].age,
-        instructor: userDetails.rows[0].is_instructor
+        is_instructor: userDetails.rows[0].is_instructor,
       };
 
       const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {
