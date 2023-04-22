@@ -38,9 +38,10 @@ const register = async (req, res) => {
     const newProfile = await pool.query(
       `INSERT INTO profiles(id, name, age, level, contact, is_instructor ) VALUES (${id}, '${name}', ${age}, '${level}', ${contact}, '${is_instructor}');`
     );
+    console.log(is_instructor);
     if (!is_instructor) {
       const insertPackages = await pool.query(
-        `INSERT INTO packages(id, remaining) VALUES (${id} , ${0})`
+        `INSERT INTO packages(id, remaining) VALUES (${id} , ${0});`
       );
     }
     res.status(200).json({ status: "ok", message: "profile is created" });
@@ -414,8 +415,8 @@ const getPackage = async (req, res) => {
     const remaining = await pool.query(
       `SELECT * from packages WHERE id= ${id}`
     );
-
-    res.json(remaining.rows[0]);
+    console.log();
+    res.status(200).json(remaining.rows[0]);
   } catch (err) {
     console.log(err.message);
     res.status(500);
