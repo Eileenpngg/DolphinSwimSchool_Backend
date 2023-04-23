@@ -413,7 +413,7 @@ const getPackage = async (req, res) => {
     res.status(200).json(remaining.rows[0]);
   } catch (err) {
     console.log(err.message);
-    res.status(500);
+    res.status(500).json("Server error");
   }
 };
 
